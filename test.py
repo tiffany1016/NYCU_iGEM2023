@@ -50,8 +50,14 @@ for j in range(len(titles)):
 
     #script
     proteinFunc = driver.find_element(By.ID,"structureTitle").text
-    print(proteinFunc)
+    print(proteinFunc,end=' ')
 
+    time.sleep(1)
+    '''
+    #sequence
+    proteinSeq = driver.find_element(By.XPATH,"/html/body/div/div[3]/div[2]/div[2]/div[2]/div/div/div/div/table/tbody/tr[5]/td/div[3]/div/div[4]/div[3]/div/div[2]/div/svg/g/g/g/g/text").text
+    print(proteinSeq)
+    '''
     time.sleep(0.2)
     driver.back()
 
