@@ -50,7 +50,7 @@ for j in range(len(titles)):
 
     #script
     proteinFunc = driver.find_element(By.ID,"structureTitle").text
-    print(proteinFunc,end=' ')
+    print(proteinFunc)
 
     time.sleep(1)
     '''
