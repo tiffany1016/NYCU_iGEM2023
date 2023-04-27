@@ -7,8 +7,8 @@ import pandas as pd
 import time
 
 # 創建一個空的DataFrame來存儲抓取到的數據
-df = pd.DataFrame(index= [0])
-df = pd.DataFrame({'名稱': '', '簡述':'', '序列':''}, index=[0])
+# df = pd.DataFrame(index= [0])
+# df = pd.DataFrame({'學校': '', '年度':'', '總主持人':'', '所有教授':'', '計畫名稱':''}, index=[0])
 
 # 設定資料庫網址
 url = 'https://www.rcsb.org' 
