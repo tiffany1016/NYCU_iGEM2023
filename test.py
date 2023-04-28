@@ -45,22 +45,34 @@ time.sleep(1)
 titles = driver.find_elements(By.CLASS_NAME,"results-item")
 
 # 開始抓每一個
-for j in range(len(titles)):
+while True:
+    for j in range(len(titles)):
 
-    title = driver.find_element(By.XPATH,'//*[@id="app"]/div[3]/div[2]/div[3]/div/div[1]/div[3]/div[3]/div[{}]/div/div[2]/table[1]/tbody/tr/td[1]/h3/a'.format(j+1))
-    title.click()
-    time.sleep(1)
+        title = driver.find_element(By.XPATH,'//*[@id="app"]/div[3]/div[2]/div[3]/div/div[1]/div[3]/div[3]/div[{}]/div/div[2]/table[1]/tbody/tr/td[1]/h3/a'.format(j+1))
+        title.click()
+        time.sleep(2)
 
-    #name
-    proteinName = driver.find_element(By.ID,"structureID").text
-    print(proteinName,end=' ')
+        #name
+        proteinName = driver.find_element(By.ID,"structureID").text
+        print(proteinName,end=' ')
 
-    #script
-    proteinFunc = driver.find_element(By.ID,"structureTitle").text
-    print(proteinFunc)
+        #script
+        proteinFunc = driver.find_element(By.ID,"structureTitle").text
+        print(proteinFunc)
 
-    driver.back()
-    time.sleep(1)
+        #sequence
+        bs = BeautifulSoup(driver.page_source, 'html.parser')
+        proteinSeq = bs.select('g.rcsbElement')[0].text.strip()
+
+        print(proteinSeq)
+
+        driver.back()
+        time.sleep(2)
+    
+    #換頁
+    time.sleep(6)
+    button = driver.find_element(By.XPATH,'//*[@id="app"]/div[3]/div[2]/div[3]/table/tbody/tr/td[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]')
+    button.click()
 
 
 
