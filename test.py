@@ -70,9 +70,12 @@ while True:
         time.sleep(2)
     
     #換頁
-    time.sleep(6)
-    button = driver.find_element(By.XPATH,'//*[@id="app"]/div[3]/div[2]/div[3]/table/tbody/tr/td[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]')
-    button.click()
+    time.sleep(2)
+    try:
+        button = driver.find_element(By.XPATH,'//*[@title="Step to Next Page"]')
+        button.click()
+    except:
+        break
 
 
 
