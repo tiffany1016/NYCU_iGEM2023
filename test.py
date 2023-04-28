@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import time
 
+#使用者輸入關鍵字
 keyWord = input("Input keyword: ")
 
 # 創建一個空的DataFrame來存儲抓取到的數據
@@ -16,9 +17,11 @@ df = pd.DataFrame({'名稱': '', '簡述':'', '序列':''}, index=[0])
 # 設定資料庫網址
 url = 'https://www.rcsb.org' 
 
+#停止登入
 options = webdriver.EdgeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
+#以edge為瀏覽器
 driver = webdriver.Edge(options=options)
 driver.get(url=url)
 driver.window_handles
@@ -46,8 +49,8 @@ for j in range(len(titles)):
 
     title = driver.find_element(By.XPATH,'//*[@id="app"]/div[3]/div[2]/div[3]/div/div[1]/div[3]/div[3]/div[{}]/div/div[2]/table[1]/tbody/tr/td[1]/h3/a'.format(j+1))
     title.click()
+    time.sleep(1)
 
-    time.sleep(2)
     #name
     proteinName = driver.find_element(By.ID,"structureID").text
     print(proteinName,end=' ')
@@ -57,7 +60,7 @@ for j in range(len(titles)):
     print(proteinFunc)
 
     driver.back()
-    time.sleep(2)
+    time.sleep(1)
 
 
 
