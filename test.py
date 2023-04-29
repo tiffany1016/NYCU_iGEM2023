@@ -41,11 +41,12 @@ search.send_keys(keyWord)
 button = driver.find_element(By.XPATH,'//*[@id="search-icon"]/span')
 button.click()
 
-time.sleep(1)
-titles = driver.find_elements(By.CLASS_NAME,"results-item")
+exitCon = 1
 
 # 開始抓每一個
-while True:
+while exitCon:
+    time.sleep(2)
+    titles = driver.find_elements(By.CLASS_NAME,"results-item")
     for j in range(len(titles)):
 
         title = driver.find_element(By.XPATH,'//*[@id="app"]/div[3]/div[2]/div[3]/div/div[1]/div[3]/div[3]/div[{}]/div/div[2]/table[1]/tbody/tr/td[1]/h3/a'.format(j+1))
@@ -63,23 +64,21 @@ while True:
         #sequence
         bs = BeautifulSoup(driver.page_source, 'html.parser')
         proteinSeq = bs.select('g.rcsbElement')[0].text.strip()
-
+ 
         print(proteinSeq)
 
         driver.back()
         time.sleep(2)
     
     #換頁
-    time.sleep(2)
     try:
         button = driver.find_element(By.XPATH,'//*[@title="Step to Next Page"]')
         button.click()
+        break
     except:
+        exitCon = 0
         break
 
-
-
-#    print(j)
 
 
 driver.quit()
