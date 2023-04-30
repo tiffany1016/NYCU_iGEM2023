@@ -30,23 +30,22 @@ wait = WebDriverWait(driver, 20)
 # 進入連結
 driver.get(url) 
 
-# 暫停幾秒鐘
-time.sleep(1)
-
 #輸入關鍵字
-search = driver.find_element(By.ID,"search-bar-input-text")
+search = wait.until( EC.presence_of_element_located((By.ID,"search-bar-input-text")))
 search.send_keys(keyWord)
 
 #按下搜尋
-button = driver.find_element(By.XPATH,'//*[@id="search-icon"]/span')
+button = wait.until( EC.presence_of_element_located((By.XPATH,'//*[@id="search-icon"]/span')))
 button.click()
 
 exitCon = 1
 
 # 開始抓每一個
 while exitCon==1:
+
     time.sleep(2)
     titles = driver.find_elements(By.CLASS_NAME,"results-item")
+
     for j in range(len(titles)):
         
         title = driver.find_element(By.XPATH,'//*[@id="app"]/div[3]/div[2]/div[3]/div/div[1]/div[3]/div[3]/div[{}]/div/div[2]/table[1]/tbody/tr/td[1]/h3/a'.format(j+1))
@@ -72,7 +71,7 @@ while exitCon==1:
         df = pd.concat([df, temp], ignore_index= True, axis= 0)
 
         driver.back()
-        time.sleep(4)
+        time.sleep(2)
     
     #換頁
     
