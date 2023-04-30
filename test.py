@@ -12,7 +12,7 @@ keyWord = input("Input keyword: ")
 
 # 創建一個空的DataFrame來存儲抓取到的數據
 df = pd.DataFrame(index= [0])
-df = pd.DataFrame({'名稱': '', '簡述':'', '序列':''}, index=[0])
+df = pd.DataFrame({'名稱': '', '簡述':'', '序列':'','長度':''}, index=[0])
 
 # 設定資料庫網址
 url = 'https://www.rcsb.org' 
@@ -67,6 +67,10 @@ while exitCon:
  
         print(proteinSeq)
 
+        # 將抓到的資料加入dataframe裡面
+        temp = pd.DataFrame({'名稱':proteinName, '簡述':proteinFunc, '序列':proteinSeq, '長度':len(proteinSeq)}, index= [0])
+        df = pd.concat([df, temp], ignore_index= True, axis= 0)
+
         driver.back()
         time.sleep(2)
     
@@ -79,6 +83,7 @@ while exitCon:
         exitCon = 0
         break
 
-
+print(df)
+df.to_excel('My_PDB.xlsx', index=False)
 
 driver.quit()
