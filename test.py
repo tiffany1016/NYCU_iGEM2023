@@ -44,11 +44,11 @@ button.click()
 exitCon = 1
 
 # 開始抓每一個
-while exitCon:
+while exitCon==1:
     time.sleep(2)
     titles = driver.find_elements(By.CLASS_NAME,"results-item")
     for j in range(len(titles)):
-
+        
         title = driver.find_element(By.XPATH,'//*[@id="app"]/div[3]/div[2]/div[3]/div/div[1]/div[3]/div[3]/div[{}]/div/div[2]/table[1]/tbody/tr/td[1]/h3/a'.format(j+1))
         title.click()
         time.sleep(2)
@@ -72,18 +72,17 @@ while exitCon:
         df = pd.concat([df, temp], ignore_index= True, axis= 0)
 
         driver.back()
-        time.sleep(2)
+        time.sleep(4)
     
     #換頁
-    try:
-        button = driver.find_element(By.XPATH,'//*[@title="Step to Next Page"]')
-        button.click()
-        break
-    except:
-        exitCon = 0
-        break
+    
+    button = wait.until( EC.presence_of_element_located((By.XPATH,'//*[@title="Step to Next Page"]')))
+    button.click()
 
-print(df)
+    if(len(titles)<25):
+        exitCon=0
+
+#print(df)
 df.to_excel('My_PDB.xlsx', index=False)
 
 driver.quit()
