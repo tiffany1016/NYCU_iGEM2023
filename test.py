@@ -8,10 +8,11 @@ import tkinter as tk
 import pandas as pd
 import time
 
+
 #使用者輸入關鍵字
-keyWord = input("Input keyword: ")
+keyWord = input("輸入關鍵字: ")
 titleTemp = ""
-title = "1"
+proteinName = "1"
 
 # 創建一個空的DataFrame來存儲抓取到的數據
 df = pd.DataFrame(index= [0])
@@ -48,7 +49,7 @@ while exitCon==1:
 
     time.sleep(2)
     titles = driver.find_elements(By.CLASS_NAME,"results-item")
-    if titleTemp==title:
+    if titleTemp==proteinName:
         break
     for j in range(len(titles)):
         
@@ -57,9 +58,9 @@ while exitCon==1:
         time.sleep(2)
 
         #name
-        if (j==0):
-            titleTemp = title
         proteinName = driver.find_element(By.ID,"structureID").text
+        if (j==0):
+            titleTemp = proteinName
         print(proteinName,end=' ')
         
 
@@ -87,5 +88,5 @@ while exitCon==1:
 
 #print(df)
 df.to_excel('My_PDB.xlsx', index=False)
-
+root.mainloop()
 driver.quit()
