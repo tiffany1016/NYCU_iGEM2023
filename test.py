@@ -55,7 +55,7 @@ while exitCon==1:
         
         title = wait.until(EC.presence_of_element_located((By.XPATH,'//*[@id="app"]/div[3]/div[2]/div[3]/div/div[1]/div[3]/div[3]/div[{}]/div/div[2]/table[1]/tbody/tr/td[1]/h3/a'.format(j+1))))
         title.click()
-        time.sleep(2)
+        time.sleep(3)
 
         #name
         proteinName = driver.find_element(By.ID,"structureID").text
