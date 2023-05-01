@@ -71,7 +71,6 @@ while exitCon==1:
         df = pd.concat([df, temp], ignore_index= True, axis= 0)
 
         driver.back()
-        time.sleep(4)
     
     #換頁
     
