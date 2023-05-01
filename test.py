@@ -88,4 +88,4 @@ while exitCon==1:
 #print(df)
 df.to_excel('My_PDB.xlsx', index=False)
 
-driver.quit()))
+driver.quit()
