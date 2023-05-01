@@ -8,18 +8,12 @@ import tkinter as tk
 import pandas as pd
 import time
 
-window = tk.Tk()
-window.title('GUI')
-window.geometry('380x400')
-window.resizable(False, False)
-test = tk.Entry()
-test.pack()
 
 #使用者輸入關鍵字
-keyWord = test.get()
+keyWord = input("請輸入關鍵字")
 titleTemp = ""
 proteinName = "1"
-window.mainloop()
+
 # 創建一個空的DataFrame來存儲抓取到的數據
 df = pd.DataFrame(index= [0])
 df = pd.DataFrame({'名稱': '', '簡述':'', '序列':'','長度':''}, index=[0])
