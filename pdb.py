@@ -10,13 +10,16 @@ import time
 
 
 #使用者輸入關鍵字
-keyWord = input("請輸入關鍵字")
+keyWord = input("請輸入關鍵字: ")
 titleTemp = ""
 proteinName = "1"
+writer = pd.ExcelWriter("My_PDB.xlsx",engine="openpyxl")
 
 # 創建一個空的DataFrame來存儲抓取到的數據
 df = pd.DataFrame(index= [0])
 df = pd.DataFrame({'名稱': '', '簡述':'', '序列':'','長度':''}, index=[0])
+
+df.to_excel(writer,index=False,header=False)
 
 # 設定資料庫網址
 url = 'https://www.rcsb.org' 
@@ -44,13 +47,14 @@ button.click()
 
 exitCon = 1
 
+row = 0
+
 # 開始抓每一個
 while exitCon==1:
 
     time.sleep(2)
     titles = driver.find_elements(By.CLASS_NAME,"results-item")
-    if titleTemp==proteinName:
-        break
+    
     for j in range(len(titles)):
         
         title = wait.until(EC.presence_of_element_located((By.XPATH,'//*[@id="app"]/div[3]/div[2]/div[3]/div/div[1]/div[3]/div[3]/div[{}]/div/div[2]/table[1]/tbody/tr/td[1]/h3/a'.format(j+1))))
@@ -59,6 +63,8 @@ while exitCon==1:
 
         #name
         proteinName = driver.find_element(By.ID,"structureID").text
+        if titleTemp==proteinName:
+            break
         if (j==0):
             titleTemp = proteinName
         print(proteinName,end=' ')
@@ -76,17 +82,19 @@ while exitCon==1:
 
         # 將抓到的資料加入dataframe裡面
         temp = pd.DataFrame({'名稱':proteinName, '簡述':proteinFunc, '序列':proteinSeq, '長度':len(proteinSeq)}, index= [0])
-        df = pd.concat([df, temp], ignore_index= True, axis= 0)
+        temp.to_excel(writer, index=False, header=False,startrow=row)
+        row+=1
+        #df = pd.concat([df, temp], ignore_index= True, axis= 0)
 
         driver.back()
     
     #換頁
-    
-    button = wait.until( EC.presence_of_element_located((By.XPATH,'//*[@title="Step to Next Page"]')))
-    button.click()
+    try:
+        button = wait.until( EC.presence_of_element_located((By.XPATH,'//*[@title="Step to Next Page"]')))
+        button.click()
+    except:
+        break
 
-
+writer.close()
 #print(df)
-df.to_excel('My_PDB.xlsx', index=False)
-root.mainloop()
 driver.quit()
