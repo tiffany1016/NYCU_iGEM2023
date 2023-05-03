@@ -62,29 +62,37 @@ while exitCon==1:
         time.sleep(3)
 
         #name
-        proteinName = driver.find_element(By.ID,"structureID").text
-        if titleTemp==proteinName:
-            break
-        if (j==0):
-            titleTemp = proteinName
-        print(proteinName,end=' ')
+        try:
+            proteinName = driver.find_element(By.ID,"structureID").text
+            if titleTemp==proteinName:
+                break
+            if (j==0):
+                titleTemp = proteinName
+        except:
+            proteinName = "name error"
+        #print(proteinName,end=' ')
         
 
         #script
-        proteinFunc = driver.find_element(By.ID,"structureTitle").text
-        print(proteinFunc)
+        try:
+            proteinFunc = driver.find_element(By.ID,"structureTitle").text
+        except:
+            proteinFunc = "func error"
+        #print(proteinFunc)
 
         #sequence
-        bs = BeautifulSoup(driver.page_source, 'html.parser')
-        proteinSeq = bs.select('g.rcsbElement')[0].text.strip()
- 
-        print(proteinSeq)
+        try:
+            bs = BeautifulSoup(driver.page_source, 'html.parser')
+            proteinSeq = bs.select('g.rcsbElement')[0].text.strip()
+        except:
+            proteinSeq = "Seq error"
+        #print(proteinSeq)
 
         # 將抓到的資料加入dataframe裡面
         temp = pd.DataFrame({'名稱':proteinName, '簡述':proteinFunc, '序列':proteinSeq, '長度':len(proteinSeq)}, index= [0])
         temp.to_excel(writer, index=False, header=False,startrow=row)
         row+=1
-        #df = pd.concat([df, temp], ignore_index= True, axis= 0)
+        print("正在讀取第{}筆資料".format(row))
 
         driver.back()
     
