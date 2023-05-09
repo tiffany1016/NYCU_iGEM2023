@@ -52,13 +52,16 @@ row = 0
 # 開始抓每一個
 while exitCon==1:
 
-    time.sleep(2)
+    time.sleep(4)
     titles = driver.find_elements(By.CLASS_NAME,"results-item")
     
     for j in range(len(titles)):
-        
-        title = wait.until(EC.presence_of_element_located((By.XPATH,'//*[@id="app"]/div[3]/div[2]/div[3]/div/div[1]/div[3]/div[3]/div[{}]/div/div[2]/table[1]/tbody/tr/td[1]/h3/a'.format(j+1))))
-        title.click()
+        try:
+            title = wait.until(EC.presence_of_element_located((By.XPATH,'//*[@id="app"]/div[3]/div[2]/div[3]/div/div[1]/div[3]/div[3]/div[{}]/div/div[2]/table[1]/tbody/tr/td[1]/h3/a'.format(j+1))))
+            title.click()
+        except:
+            print("title error")
+            break
         time.sleep(3)
 
         #name
