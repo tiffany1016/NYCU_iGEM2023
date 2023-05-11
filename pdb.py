@@ -105,12 +105,20 @@ for i in range(int(rowmax)):
 
     if titlestr!="title error":
         driver.back()
-    else:
-        break
-
-    element=wait.until(EC.visibility_of_element_located((By.XPATH,'//*[@id="root"]/div[1]/div/div/main/table/tbody/tr[{}]/td[2]/span/a'.format(row+1))))
-    element.location_once_scrolled_into_view
-    row+=1
+    # else:
+    #     break
+    while True:
+        try:
+            element=wait.until(EC.visibility_of_element_located((By.XPATH,'//*[@id="root"]/div[1]/div/div/main/table/tbody/tr[{}]/td[2]/span/a'.format(row+1))))
+            element.location_once_scrolled_into_view
+            row+=1
+            break
+        except:
+            driver.find_element(By.TAG_NAME,'body').send_keys(Keys.PAGE_DOWN)
+            driver.find_element(By.TAG_NAME,'body').send_keys(Keys.PAGE_DOWN)
+            driver.find_element(By.TAG_NAME,'body').send_keys(Keys.PAGE_DOWN)
+            continue
+    
 
 writer.close()
 #print(df)
