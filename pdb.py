@@ -75,7 +75,7 @@ for i in range(int(rowmax)):
     except:
         proteinName = "name error"
         pass
-    print(proteinName,end=' ')
+    #print(proteinName,end=' ')
 
     #script
     try:
@@ -83,7 +83,7 @@ for i in range(int(rowmax)):
     except:
         proteinFunc = "func error"
         pass
-    print(proteinFunc)
+    #print(proteinFunc)
 
     #滾輪
     driver.find_element(By.TAG_NAME,'body').send_keys(Keys.END)
@@ -114,9 +114,8 @@ for i in range(int(rowmax)):
             row+=1
             break
         except:
-            driver.find_element(By.TAG_NAME,'body').send_keys(Keys.PAGE_DOWN)
-            driver.find_element(By.TAG_NAME,'body').send_keys(Keys.PAGE_DOWN)
-            driver.find_element(By.TAG_NAME,'body').send_keys(Keys.PAGE_DOWN)
+            for i in range(row//25):
+                driver.find_element(By.TAG_NAME,'body').send_keys(Keys.PAGE_DOWN)
             continue
     
 
