@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoxyProt</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1><strong><em>FoxyProt</em></strong></h1>
+    </header>
+    <main>
+        <div class="container">
+			<div class="box">
+				<img src="{{ url_for('static', filename='img/gearsrotating.gif') }}" alt="" width="360" height="240">
+			</div>
+			<label for="fastaFile">Select your fasta file:</label>
+            <input type="file" id="fastaFile" accept=".fasta">
+            <button id="processButton">Process</button>
+        </div>
+        <div id="resultContainer"></div>
+        </div>
+    </main>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
